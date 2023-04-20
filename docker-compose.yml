@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  datingappapi:
+    image: ${DOCKER_REGISTRY-}datingappapi
+    build:
+      context: .
+      dockerfile: DatingAppApi\Dockerfile
