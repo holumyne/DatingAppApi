@@ -1,7 +1,8 @@
 ﻿using DatingAppApi.Errors;
 using System.Text.Json;
 using System.Net;
-
+using System.Globalization;
+using DatingAppApi.Middleware;
 
 namespace DatingAppApi.Middleware
 {
@@ -22,7 +23,19 @@ namespace DatingAppApi.Middleware
         {
             try
             {
-                await _next(context);
+                 await _next(context);
+
+                //var cultureQuery = context.Request.Query["culture"];
+                //if (!string.IsNullOrWhiteSpace(cultureQuery))
+                //{
+                //    var culture = new CultureInfo(cultureQuery);
+
+                //    CultureInfo.CurrentCulture = culture;
+                //    CultureInfo.CurrentUICulture = culture;
+                //}
+
+                //// Call the next delegate/middleware in the pipeline.
+                //await _next(context);
             }
             catch (Exception ex)
             {
@@ -34,7 +47,7 @@ namespace DatingAppApi.Middleware
                     ? new ApiException(context.Response.StatusCode, ex.Message, ex.StackTrace?.ToString())
                     : new ApiException(context.Response.StatusCode, ex.Message, "Internal Server Error");
 
-                var options = new JsonSerializerOptions {PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+                var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
                 var json = JsonSerializer.Serialize(response, options);
 
@@ -43,3 +56,13 @@ namespace DatingAppApi.Middleware
         }
     }
 }
+
+
+//public static class RequestCultureMiddlewareExtensions
+//{
+//    public static IApplicationBuilder UseRequestCulture(
+//        this IApplicationBuilder builder)
+//    {
+//        return builder.UseMiddleware<ExceptionMiddleware>();
+//    }
+//}

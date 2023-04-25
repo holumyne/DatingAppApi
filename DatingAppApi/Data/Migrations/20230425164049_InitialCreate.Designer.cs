@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DatingAppApi.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230410151954_PostgresInitialCreate")]
-    partial class PostgresInitialCreate
+    [Migration("20230425164049_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
